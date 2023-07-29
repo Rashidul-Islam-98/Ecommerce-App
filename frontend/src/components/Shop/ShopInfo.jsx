@@ -28,10 +28,16 @@ const ShopInfo = ({ isOwner }) => {
   
 
   const logoutHandler = async () => {
-    axios.get(`${server}/shop/logout`,{
-      withCredentials: true,
+    axios
+    .get(`${server}/shop/logout`,{ withCredentials: true })
+      .then((res) => {
+      toast.success(res.data.message);
+      window.location.reload(true);
+      navigate("/shop/login");
+    })
+    .catch((error) => {
+      console.log(error.response.data.message);
     });
-    window.location.reload();
   };
 
   const totalReviewsLength =
